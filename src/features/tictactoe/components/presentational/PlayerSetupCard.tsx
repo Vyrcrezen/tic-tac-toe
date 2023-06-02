@@ -8,13 +8,14 @@ import React from "react";
 
 import TokenType, { tokenTypes } from "../../types/TokenType";
 import PlayerInfo from "../../types/PlayerInfo";
-import { useAppDispatch } from "../../../../global/redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../../../global/redux/hooks";
 import { removePlayer, setPlayerName, setPlayerToken } from "../../redux/reducers/slices/gameInputSlice";
 import importMapAssets from "../../imports/importMapAssets";
 
 export default function PlayerSetupCard({player, mapAssets}: { player: PlayerInfo, mapAssets?: Awaited<ReturnType<typeof importMapAssets>> }) {
 
     const dispatch = useAppDispatch();
+    const { gameSetup: localeGameSetup, tokens: localeTokens} = useAppSelector(state => state.localization.data.ticTacToe);
 
     return (
         <div className="col-lg-6" >
@@ -22,25 +23,22 @@ export default function PlayerSetupCard({player, mapAssets}: { player: PlayerInf
                 <TextField
                     variant="standard"
                     className=''
-                    label='Player name'
+                    label={localeGameSetup.playerName}
                     type="text"
                     value={player.name}
                     onChange={(event) => dispatch(setPlayerName({ playerName: player.name, newName: event.target.value }))}
                 />
                 <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-                    <InputLabel id={`${player.name}-token`}>Token</InputLabel>
+                    <InputLabel id={`${player.name}-token`}>{localeGameSetup.token}</InputLabel>
                     <Select
                         labelId={`${player.name}-token`}
                         value={player.tokenType}
                         onChange={(event) => dispatch(setPlayerToken({ playerName: player.name, newToken: event.target.value as TokenType }))}
                         label="Token"
                     >
-                        <MenuItem value={player.tokenType}>
-                            <em>{player.tokenType}</em>
-                        </MenuItem>
                         {
                             tokenTypes.map(token => (
-                                <MenuItem key={`TokenType-${token}`} value={token}>{token}</MenuItem>
+                                <MenuItem key={`TokenType-${token}`} value={token}>{localeTokens[token]}</MenuItem>
                             ))
                         }
                     </Select>

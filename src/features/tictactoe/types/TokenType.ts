@@ -4,11 +4,12 @@ export const tokenTypes = [
   "ring",
   "coin",
   "triangle",
-  "rectangle",
   "star",
   "pentagon",
-  "hecagon",
+  "hexagon",
   "bipyramid",
+  "square",
+  "heart"
 ] as const;
 
 type TokenType = typeof tokenTypes[number];

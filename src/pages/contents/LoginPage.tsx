@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 import React from "react";
 import { useSubmit } from "react-router-dom";
 import Button from "@mui/material/Button";
-import { useAppDispatch } from "../../global/redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../global/redux/hooks";
 import { setLoggedUser } from "../../features/auth/redux/reducers/slices/userAuthSlice";
 import validateLogin from "../../features/auth/util/validateLogin";
 import UsernameNotFoundError from "../../features/auth/errors/UsernameNotFoundError";
@@ -15,18 +15,20 @@ export default function LoginPage() {
     const submit = useSubmit();
     const dispatch = useAppDispatch();
 
+    const {common: locale, error} = useAppSelector(state => state.localization.data.auth);
+
     return (
         <div className='container d-flex flex-column mt-4'>
             <div className="m-auto rounded p-3 vy-secondary vy-lone-backdrop">
-                <h3>Login</h3>
+                <h3>{locale.login}</h3>
                 <Formik
                     initialValues={{
                         username: '',
                         password: '',
                     }}
                     validationSchema={Yup.object({
-                        username: Yup.string().required('Required'),
-                        password: Yup.string().required('Required'),
+                        username: Yup.string().required(error.required),
+                        password: Yup.string().required(error.required),
                     })}
                     onSubmit={(values, action) => {                   
                         validateLogin(values)
@@ -37,7 +39,7 @@ export default function LoginPage() {
                         .catch((err) => {
                             if (err instanceof UsernameNotFoundError) action.setFieldError('username', err.message);
                             else if (err instanceof IncorrectPasswordError) action.setFieldError('password', err.message);
-                            else action.setFieldError('username', "Something went wrong.");
+                            else action.setFieldError('username', error.unkownError);
                         });
                     }}
                 >
@@ -49,7 +51,7 @@ export default function LoginPage() {
                                         className='mb-4'
                                         fullWidth
                                         name='username'
-                                        label='Username'
+                                        label={locale.username}
                                         value={formik.values.username}
                                         onChange={formik.handleChange}
                                         onBlur={formik.handleBlur}
@@ -60,7 +62,7 @@ export default function LoginPage() {
                                         className='mb-4'
                                         fullWidth
                                         name='password'
-                                        label='Password'
+                                        label={locale.password}
                                         type='password'
                                         value={formik.values.password}
                                         onChange={formik.handleChange}
@@ -73,8 +75,9 @@ export default function LoginPage() {
                                         variant='contained'
                                         color='primary'
                                         type='submit'
+                                        disabled={formik.isSubmitting}
                                         >
-                                        Login
+                                        {locale.login}
                                     </Button>
                                 </Form>
                             </>

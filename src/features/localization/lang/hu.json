@@ -1,0 +1,64 @@
+{
+    "ticTacToe": {
+      "title": "Amőba",
+      "loginPrompt": {
+        "please": "Kérlek",
+        "login": "Jelentkezz be",
+        "or": "vagy",
+        "register": "Regisztrálj",
+        "toPlay": "hogy a játék elkezdődhessen."
+      },
+      "gameSetup": {
+          "welcome": "Üdvözlet, ",
+          "readyToPlay": "Kezdődhet a játék?",
+          "boardCol": "Tábla oszlopok",
+          "boardRow": "Tábla sorok",
+          "adjacentTokensToWin": "Szomszédos tokenek nyeréshez",
+          "playerName": "Játékos neve",
+          "token": "Jel",
+          "addPlayer": "Játékos hozzáadása",
+          "start": "Kezdés"
+      },
+      "playerTurns": {
+          "current": "jelenlegi",
+          "previous": "előző",
+          "next": "következő",
+          "score": "pont"
+      },
+      "roundWon": {
+          "won": "nyert",
+          "continue": "folytatás",
+          "end": "vége",
+          "score": "pont"
+      },
+      "tokens": {
+        "x": "x",
+        "ring": "fánk",
+        "coin": "érme",
+        "triangle": "háromszög",
+        "star": "csillag",
+        "pentagon": "ötszög",
+        "hexagon": "hatszög",
+        "bipyramid": "dupla piramis",
+        "square": "négyzet",
+        "heart": "szív"
+      }
+    },
+    "auth": {
+      "common": {
+          "login": "Bejelentkezés",
+          "register": "Regisztrálás",
+          "username": "Felhasználónév",
+          "email": "Email",
+          "password": "Jelsző",
+          "rePassword": "Jelsző megint"
+      },
+      "error": {
+          "required": "Szükséges",
+          "unkownError": "Hiba történt",
+          "passwordsMustMatch": "A jelszavaknak egyezniük kell",
+          "invalidEmail": "Rossz e-mail cím"
+      }
+  }
+  }
+  

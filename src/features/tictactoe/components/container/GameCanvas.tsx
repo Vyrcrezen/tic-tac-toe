@@ -20,26 +20,15 @@ import getNextPlayer from "../../util/getNextPlayer";
 import placeCurrentPlayerTokenThunk from "../../redux/reducers/thunks/placeCurrentPlayerTokenThunk";
 import LoginPage from "../../../../pages/contents/LoginPage";
 import { Link } from "react-router-dom";
+import LoginPrompt from "../presentational/LoginPrompt";
 
 export default function GameCanvas({mapAssets}: {mapAssets?: Awaited<ReturnType<typeof importMapAssets>>}) {
-
-    
 
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
     const state = useAppSelector(state => state.ticTacToe);
     const loggedUser = useAppSelector(state => state.userAuth.loggedUserName);
     const dispatch = useAppDispatch();
-
-    console.log(state);
-
-    // if (state.gameState.inGameTasks.playerActionsList) {
-    //     console.log(getPreviousPlayer(state.gameState.inGameTasks.playerActionsList));
-    //     console.log(getCurrentPlayer(state.gameState.inGameTasks.playerActionsList));
-    //     console.log(getNextPlayer(state.gameState.inGameTasks.playerActionsList));
-    // }
-
-
 
     useEffect(() => {
 
@@ -102,6 +91,18 @@ export default function GameCanvas({mapAssets}: {mapAssets?: Awaited<ReturnType<
                 break;
                 case 'x': ctx.drawImage(mapAssets.x.image, token.position.x * cellSize, token.position.y * cellSize, cellSize, cellSize);
                 break;
+                case 'coin': ctx.drawImage(mapAssets.coin.image, token.position.x * cellSize, token.position.y * cellSize, cellSize, cellSize);
+                break;
+                case 'square': ctx.drawImage(mapAssets.square.image, token.position.x * cellSize, token.position.y * cellSize, cellSize, cellSize);
+                break;
+                case 'star': ctx.drawImage(mapAssets.star.image, token.position.x * cellSize, token.position.y * cellSize, cellSize, cellSize);
+                break;
+                case 'pentagon': ctx.drawImage(mapAssets.pentagon.image, token.position.x * cellSize, token.position.y * cellSize, cellSize, cellSize);
+                break;
+                case 'hexagon': ctx.drawImage(mapAssets.hexagon.image, token.position.x * cellSize, token.position.y * cellSize, cellSize, cellSize);
+                break;
+                case 'heart': ctx.drawImage(mapAssets.heart.image, token.position.x * cellSize, token.position.y * cellSize, cellSize, cellSize);
+                break;
             }
             
         });
@@ -112,7 +113,7 @@ export default function GameCanvas({mapAssets}: {mapAssets?: Awaited<ReturnType<
         <div className="p-2 w-100 h-100 rounded" >
             {
                 !loggedUser
-                ? <h4 className="text-center m-5">Please <a href="/login">Login</a> or <Link to="/register">Register</Link> to play the game.</h4>
+                ? <LoginPrompt />
                 : state.gameState.isInitialized
                     ? <canvas
                         className="rounded w-100 h-100"

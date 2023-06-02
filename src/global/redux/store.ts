@@ -9,10 +9,13 @@ import userAuthSlice from "../../features/auth/redux/reducers/slices/userAuthSli
 import thunk from "redux-thunk";
 import storage from "redux-persist/lib/storage";
 import { FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE, persistReducer, persistStore } from "redux-persist";
+import localizationSlice from "../../features/localization/redux/reducers/slices/localizationSlice";
+import defaultLocalizationStore from "../../features/localization/redux/defaultLocalizationStore";
 
 const initialState: ReduxStore = {
     ticTacToe: initialTicTacToeState,
-    userAuth: initialUserAuthState
+    userAuth: initialUserAuthState,
+    localization: defaultLocalizationStore
 };
 
 
@@ -25,12 +28,12 @@ const combinedTicTacToeReducers = combineReducers({
 const rootReducer = combineReducers({
     userAuth: userAuthSlice,
     ticTacToe: combinedTicTacToeReducers,
+    localization: localizationSlice
 });
 
 const persistConfig = {
     key: 'root',
     storage,
-    whitelist: ['userAuth']
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

@@ -34,6 +34,30 @@ export default async function importMapAssets() {
         import('./../media/images/wooden-bipyramid.png')
         .then((data) => loadImage(data.default))
         .then(imageData => imageImports.bipyramid = { name: 'wooden-bipyramid', src: imageData.src, image: imageData.img }),
+
+        import('./../media/images/wooden-square.png')
+        .then((data) => loadImage(data.default))
+        .then(imageData => imageImports.square = { name: 'wooden-square', src: imageData.src, image: imageData.img }),
+
+        import('./../media/images/wooden-coin.png')
+        .then((data) => loadImage(data.default))
+        .then(imageData => imageImports.coin = { name: 'wooden-coin', src: imageData.src, image: imageData.img }),
+
+        import('./../media/images/wooden-star.png')
+        .then((data) => loadImage(data.default))
+        .then(imageData => imageImports.star = { name: 'wooden-star', src: imageData.src, image: imageData.img }),
+
+        import('./../media/images/wooden-pentagon.png')
+        .then((data) => loadImage(data.default))
+        .then(imageData => imageImports.pentagon = { name: 'wooden-pentagon', src: imageData.src, image: imageData.img }),
+
+        import('./../media/images/wooden-hexagon.png')
+        .then((data) => loadImage(data.default))
+        .then(imageData => imageImports.hexagon = { name: 'wooden-hexagon', src: imageData.src, image: imageData.img }),
+
+        import('./../media/images/wooden-heart.png')
+        .then((data) => loadImage(data.default))
+        .then(imageData => imageImports.heart = { name: 'wooden-heart', src: imageData.src, image: imageData.img }),
         );
 
     await Promise.all(promiseArray);
