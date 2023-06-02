@@ -2,8 +2,8 @@ import LocalizationData from "../redux/types/LocalizationData";
 import * as _ from 'lodash';
 
 const defaultLocalizationData: LocalizationData = {
-    locale: 'en',
     data: {
+        locale: 'en',
         "ticTacToe": {
             "title": "Tic-Tac-Toe",
             loginPrompt: {

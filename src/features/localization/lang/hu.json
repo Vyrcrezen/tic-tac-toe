@@ -1,4 +1,5 @@
 {
+    "locale": "hu",
     "ticTacToe": {
       "title": "Amőba",
       "loginPrompt": {
@@ -33,7 +34,7 @@
       },
       "tokens": {
         "x": "x",
-        "ring": "fánk",
+        "ring": "kör",
         "coin": "érme",
         "triangle": "háromszög",
         "star": "csillag",

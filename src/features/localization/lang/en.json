@@ -1,4 +1,5 @@
 {
+  "locale": "en",
   "ticTacToe": {
     "title": "Tic-Tac-Toe",
     "loginPrompt": {

@@ -10,9 +10,6 @@ const localizationSlice = createSlice({
     name: 'localization',
     initialState: defaultLocalizationStore,
     reducers: {
-        setLocale: (state, action: PayloadAction<SupportedLocale>) => {
-            state.locale = action.payload;
-        },
         setLocalizationData: (state, action: PayloadAction<LocalizationData["data"]>) => {
 
             state.data = Object.assign({}, getDefaultLocalizationData().data, action.payload);
@@ -21,7 +18,6 @@ const localizationSlice = createSlice({
 });
 
 export const {
-    setLocale,
     setLocalizationData
 } = localizationSlice.actions;
 

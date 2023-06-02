@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import GameCanvas from "./GameCanvas";
 import importMapAssets from "../../imports/importMapAssets";
-import { addPlayer } from "../../redux/reducers/slices/gameInputSlice";
 import { useAppDispatch } from "../../../../global/redux/hooks";
 import TopBar from "../hoc/TopBar";
 
@@ -17,10 +16,6 @@ export default function GameCanvasArea() {
             importMapAssets()
                 .then(assets => setMapAssets(assets))
                 .catch(err => console.log(err));
-
-            dispatch(addPlayer({ playerName: "Vyr", token: 'bipyramid' }));
-            dispatch(addPlayer({ playerName: "Sen", token: 'ring' }));
-            dispatch(addPlayer({ playerName: "Cresi", token: 'triangle' }));
         }
     }, []);
     return (

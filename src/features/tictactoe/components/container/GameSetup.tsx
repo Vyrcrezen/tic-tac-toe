@@ -1,5 +1,5 @@
 import Button from "@mui/material/Button";
-import React from "react";
+import React, { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../../global/redux/hooks";
 import { setIsConfigFinished } from "../../redux/reducers/slices/gameStateSlice";
 import TextField from "@mui/material/TextField";
@@ -71,7 +71,7 @@ export default function GameSetup({mapAssets}: {mapAssets?: Awaited<ReturnType<t
                     className="mb-2"
                     variant='contained'
                     color='primary'
-                    onClick={() => dispatch(addPlayer({ playerName: `Player-${inputState.players.length}`, token: 'ring' }))}
+                    onClick={() => dispatch(addPlayer({ playerName: `Player-${inputState.players.length+1}`, token: 'ring' }))}
                 >
                     {locale.addPlayer}
                 </Button>
@@ -80,7 +80,9 @@ export default function GameSetup({mapAssets}: {mapAssets?: Awaited<ReturnType<t
                 <Button
                     variant='contained'
                     color='primary'
-                    onClick={() => dispatch(setIsConfigFinished(true))}
+                    onClick={() => {
+                        if (inputState.players.length > 0) dispatch(setIsConfigFinished(true));
+                    }}
                 >
                     {locale.start}
                 </Button>

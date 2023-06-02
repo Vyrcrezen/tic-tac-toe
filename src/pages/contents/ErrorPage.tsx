@@ -1,5 +1,5 @@
 import React from 'react';
-import { useRouteError } from "react-router-dom";
+import { Link, useRouteError } from "react-router-dom";
 
 
 export default function ErrorPage() {
@@ -7,10 +7,10 @@ export default function ErrorPage() {
     console.log(error);
 
     return (
-        <div>
-            <h1>An unexpected error occured</h1>
-            <p>
-                Unfortuntely, there was an error.
+        <div className='container'>
+            <h1 className='text-center'>404, Not Found</h1>
+            <p className='text-center'>
+                You can return to the home page <Link to={"/"} >here</Link>
             </p>
         </div>
     );

@@ -1,8 +1,8 @@
 import SupportedLocale from "./SupportedLocale"
 
 export default interface LocalizationData {
-    locale: SupportedLocale,
     data: {
+        locale: string,
         ticTacToe: {
             title: string,
             loginPrompt: {

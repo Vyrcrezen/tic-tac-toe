@@ -5,7 +5,20 @@ export default function getDefaultGameInput() {
     const defaultGameInput: GameInput = {
         boardRows: 10,
         boardColumns: 10,
-        players: [],
+        players: [
+            {
+                name: "Player-1",
+                roundWins: 0,
+                tokenType: 'ring',
+                turnOrder: 0
+            },
+            {
+                name: "Player-2",
+                roundWins: 0,
+                tokenType: 'x',
+                turnOrder: 1
+            }
+        ],
         numAdjacentTokensToWin: 5,
     };
 

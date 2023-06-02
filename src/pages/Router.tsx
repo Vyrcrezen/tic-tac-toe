@@ -14,12 +14,13 @@ import { element } from "prop-types";
 import RootContext from "./contexts/RootContext";
 import registerAction from "../features/auth/actions/registerAction";
 import loginAction from "../features/auth/actions/loginAction";
+import ErrorPage from "./contents/ErrorPage";
 
 const router = createBrowserRouter([
     {
         path: '/',
         element: <RootContext />,
-        errorElement: <div>Error...</div>,
+        errorElement: <ErrorPage />,
         children: [
             {
                 element: <DefaultLayout />,
