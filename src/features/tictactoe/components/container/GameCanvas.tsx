@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../../global/redux/hooks";
 
 import fullCellFrameImg from '../../media/images/full-cell-frame.png';
-import { addPlayerToken, setBoardDimensions } from "../../redux/reducers/slices/gameResourcesSlice";
+import { setBoardDimensions } from "../../redux/reducers/slices/gameResourcesSlice";
 import Coordinate from "../../types/Coordinate";
 import PlacedToken from "../../types/PlacedToken";
 import isTokenPresentInCell from "../../util/isTokenPresentInCell";
@@ -14,28 +14,32 @@ import ringTokenImg from './../../media/images/wooden-ring.png';
 import importMapAssets from "../../imports/importMapAssets";
 import { addPlayer } from "../../redux/reducers/slices/gameInputSlice";
 import GameSetup from "./GameSetup";
+import getCurrentPlayer from "../../util/getCurrentPlayer";
+import getPreviousPlayer from "../../util/getPreviousPlayer";
+import getNextPlayer from "../../util/getNextPlayer";
+import placeCurrentPlayerTokenThunk from "../../redux/reducers/thunks/placeCurrentPlayerTokenThunk";
+import LoginPage from "../../../../pages/contents/LoginPage";
+import { Link } from "react-router-dom";
 
-export default function GameCanvas() {
+export default function GameCanvas({mapAssets}: {mapAssets?: Awaited<ReturnType<typeof importMapAssets>>}) {
 
-    const [mapAssets, setMapAssets] = useState<Awaited<ReturnType<typeof importMapAssets>>>();
+    
 
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
     const state = useAppSelector(state => state.ticTacToe);
+    const loggedUser = useAppSelector(state => state.userAuth.loggedUserName);
     const dispatch = useAppDispatch();
 
-    // Import the assets
-    useEffect(() => {
-        if (!mapAssets) {
-            importMapAssets()
-                .then(assets => setMapAssets(assets))
-                .catch(err => console.log(err));
+    console.log(state);
 
-            dispatch(addPlayer({ playerName: "Vyr", token: 'bipyramid' }));
-            dispatch(addPlayer({ playerName: "Vyr", token: 'bipyramid' }));
-            dispatch(addPlayer({ playerName: "Cresi", token: 'triangle' }));
-        }
-    }, []);
+    // if (state.gameState.inGameTasks.playerActionsList) {
+    //     console.log(getPreviousPlayer(state.gameState.inGameTasks.playerActionsList));
+    //     console.log(getCurrentPlayer(state.gameState.inGameTasks.playerActionsList));
+    //     console.log(getNextPlayer(state.gameState.inGameTasks.playerActionsList));
+    // }
+
+
 
     useEffect(() => {
 
@@ -60,7 +64,7 @@ export default function GameCanvas() {
 
         dispatch(setBoardDimensions({ canvasHeight: canvas.height, canvasWidht: canvas.width, cellSize }));
 
-    }, [canvasRef.current]);
+    }, [canvasRef.current, state.gameState.isInitialized]);
 
     useEffect(() => {
 
@@ -69,11 +73,14 @@ export default function GameCanvas() {
         const canvas = canvasRef.current;
         const ctx = canvas.getContext('2d');
 
-        if (!ctx) return;
+        if (!ctx) return;        
 
         const { cellSize } = state.gameResources.boardDimensions;
         const { boardRows, boardColumns } = state.gameInput;
-        const { tokens } = state.gameResources;
+        const { tokens } = state.gameState.inGameResource;
+        const { boardDimensions } = state.gameResources;
+
+        ctx.clearRect(0, 0, boardDimensions.canvasWidht, boardDimensions.canvasHeight);
 
         for (let columnIndex = 0; columnIndex < boardColumns; columnIndex++) {
             for (let rowIndex = 0; rowIndex < boardRows; rowIndex++) {
@@ -86,44 +93,39 @@ export default function GameCanvas() {
         }
 
         tokens.forEach(token => {
-            ctx.drawImage(mapAssets.ring.image, token.position.x * cellSize, token.position.y * cellSize, cellSize, cellSize);
-        });
-
-    }, [mapAssets, canvasRef.current, state.gameResources.boardDimensions, state.gameResources.tokens]);
-
-    return (
-        <div className="p-3 w-100 h-100 rounded" >
-            {
-                state.gameState.isRunning
-                ? <canvas
-                    className="rounded w-100 h-100"
-                    ref={canvasRef}
-                    onClick={(event) => {
-                        if (!canvasRef.current) return;
-
-                        const canvasRect = canvasRef.current.getBoundingClientRect();
-
-                        const canvasX = event.clientX - canvasRect.left;
-                        const canvasY = event.clientY - canvasRect.top;
-
-                        const { tokens, boardDimensions: { cellSize } } = state.gameResources;
-
-                        const cellX = Math.floor(canvasX / cellSize);
-                        const cellY = Math.floor(canvasY / cellSize);
-
-                        const isCellOccupied = isTokenPresentInCell({ x: cellX, y: cellY }, tokens);
-
-                        if (!isCellOccupied) {
-                            dispatch(addPlayerToken({
-                                position: { x: cellX, y: cellY },
-                                type: 'ring'
-                            }));
-                        }
-                    }}
-                />
-                : <GameSetup />
+            switch (token.type) {
+                case 'bipyramid': ctx.drawImage(mapAssets.bipyramid.image, token.position.x * cellSize, token.position.y * cellSize, cellSize, cellSize);
+                break;
+                case 'triangle': ctx.drawImage(mapAssets.triangle.image, token.position.x * cellSize, token.position.y * cellSize, cellSize, cellSize);
+                break;
+                case 'ring': ctx.drawImage(mapAssets.ring.image, token.position.x * cellSize, token.position.y * cellSize, cellSize, cellSize);
+                break;
+                case 'x': ctx.drawImage(mapAssets.x.image, token.position.x * cellSize, token.position.y * cellSize, cellSize, cellSize);
+                break;
             }
             
+        });
+
+    }, [mapAssets, canvasRef.current, state.gameState.isInitialized, state.gameResources.boardDimensions, state.gameState.inGameResource.tokens]);
+
+    return (
+        <div className="p-2 w-100 h-100 rounded" >
+            {
+                !loggedUser
+                ? <h4 className="text-center m-5">Please <a href="/login">Login</a> or <Link to="/register">Register</Link> to play the game.</h4>
+                : state.gameState.isInitialized
+                    ? <canvas
+                        className="rounded w-100 h-100"
+                        ref={canvasRef}
+                        onClick={(event) => {
+                            if (!canvasRef.current) return;
+
+                            dispatch(placeCurrentPlayerTokenThunk(event, canvasRef.current, state.gameResources, state.gameState));
+                        }}
+                    />
+                    : <GameSetup mapAssets={mapAssets} />
+            }
+
         </div>
     );
 }

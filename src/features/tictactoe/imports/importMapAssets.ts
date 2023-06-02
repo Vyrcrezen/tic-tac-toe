@@ -1,9 +1,9 @@
 import TokenType from '../types/TokenType';
 
-function loadImage(src: string): Promise<HTMLImageElement> {
+function loadImage(src: string): Promise<{ src: string, img: HTMLImageElement}> {
     return new Promise((resolve, reject) => {
         const image = new Image();
-        image.onload = () => resolve(image);
+        image.onload = () => resolve({ src, img: image });
         image.onerror = reject;
         image.src = src;
     });
@@ -11,29 +11,29 @@ function loadImage(src: string): Promise<HTMLImageElement> {
 
 export default async function importMapAssets() {
 
-    const imageImports: Record<TokenType | 'fullCellFrame', { name: string, image: HTMLImageElement}> = {} as Record<TokenType | 'fullCellFrame', { name: string, image: HTMLImageElement}>;
+    const imageImports: Record<TokenType | 'fullCellFrame', { name: string, src: string, image: HTMLImageElement}> = {} as Record<TokenType | 'fullCellFrame', { name: string, src: string, image: HTMLImageElement}>;
     const promiseArray: Promise<any>[] = [];
 
     promiseArray.push(
         import('./../media/images/full-cell-frame.png')
         .then((data) => loadImage(data.default))
-        .then(image => imageImports.fullCellFrame = { name: 'full-cell-frame', image: image }),
+        .then(imageData => imageImports.fullCellFrame = { name: 'full-cell-frame', src: imageData.src, image: imageData.img }),
 
         import('./../media/images/wooden-ring.png')
         .then((data) => loadImage(data.default))
-        .then(image => imageImports.ring = { name: 'wooden-ring', image: image }),
+        .then(imageData => imageImports.ring = { name: 'wooden-ring', src: imageData.src, image: imageData.img }),
 
         import('./../media/images/wooden-triangle.png')
         .then((data) => loadImage(data.default))
-        .then(image => imageImports.triangle = { name: 'wooden-triangle', image: image }),
+        .then(imageData => imageImports.triangle = { name: 'wooden-triangle', src: imageData.src, image: imageData.img }),
 
         import('./../media/images/wooden-x.png')
         .then((data) => loadImage(data.default))
-        .then(image => imageImports.x = { name: 'wooden-x', image: image }),
+        .then(imageData => imageImports.x = { name: 'wooden-x', src: imageData.src, image: imageData.img }),
 
         import('./../media/images/wooden-bipyramid.png')
         .then((data) => loadImage(data.default))
-        .then(image => imageImports.bipyramid = { name: 'wooden-bipyramid', image: image }),
+        .then(imageData => imageImports.bipyramid = { name: 'wooden-bipyramid', src: imageData.src, image: imageData.img }),
         );
 
     await Promise.all(promiseArray);

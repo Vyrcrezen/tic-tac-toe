@@ -1,0 +1,19 @@
+
+.vy-player-setup-card {
+    border-width: 1px;
+    border-style: dashed;
+    border-color: var(--vy-sys-color-primary);
+}
+
+.vy-player-setup-card > img {
+    width: 3.5rem;
+}
+
+.vy-game-setup > div:first-child > button {
+    top: 0;
+    right: 0;
+
+    border-color: var(--vy-sys-color-primary);
+    border-style: dashed;
+    border-width: 1px;
+}

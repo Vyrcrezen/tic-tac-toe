@@ -4,7 +4,7 @@ import RuntimeUpdater from '../../features/tictactoe/logic/RuntimeUpdater';
 
 export default function TicTacToePage() {
     return (
-        <div className="container">
+        <div className="container p-0">
             <RuntimeUpdater />
             <GameCanvasArea />
         </div>

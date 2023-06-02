@@ -1,41 +1,14 @@
+import getDefaultGameInput from "../initializers/getDefaultGameInput";
+import getDefaultGameResources from "../initializers/getDefaultGameResources";
+import getDefaultGameState from "../initializers/getDefaultGameState";
 import TicTacToeStore from "./types/TicTacToeStore";
 
 const initialTicTacToeState: TicTacToeStore = {
-    gameResources: {
-        tokens: [],
-        boardDimensions: {
-            canvasHeight: 100,
-            canvasWidht: 100,
-            cellSize: 10,
-        }
-    },
+    gameResources: getDefaultGameResources(),
 
-    gameState: {
-        isInitialized: false,
-        isBeingInitialized: false,
-        initializationTasks: {
-            isConfigFinished: false,
-            isPlayerActionTrackerGenerated: false
-        },
-    
-        isRunning: false,
-        isGameOver: false,
-        inGameTasks: {
-            playerActions: []
-        },
-    
-        isAdvancingPostGameState: false,
-        isPostGameStateFinished: false,
-        postGameTasks: {
-            isNextGameSelected: false
-        }
-    },
+    gameState: getDefaultGameState(),
 
-    gameInput: {
-        boardRows: 10,
-        boardColumns: 10,
-        players: []
-    }
+    gameInput: getDefaultGameInput(),
 }
 
 export default initialTicTacToeState;

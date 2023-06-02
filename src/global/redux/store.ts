@@ -7,11 +7,14 @@ import gameResourcesSlice from "../../features/tictactoe/redux/reducers/slices/g
 import gameInputSlice from "../../features/tictactoe/redux/reducers/slices/gameInputSlice";
 import userAuthSlice from "../../features/auth/redux/reducers/slices/userAuthSlice";
 import thunk from "redux-thunk";
+import storage from "redux-persist/lib/storage";
+import { FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE, persistReducer, persistStore } from "redux-persist";
 
 const initialState: ReduxStore = {
     ticTacToe: initialTicTacToeState,
     userAuth: initialUserAuthState
 };
+
 
 const combinedTicTacToeReducers = combineReducers({
     gameState: gameStateSlice,
@@ -19,18 +22,35 @@ const combinedTicTacToeReducers = combineReducers({
     gameInput: gameInputSlice,
 });
 
+const rootReducer = combineReducers({
+    userAuth: userAuthSlice,
+    ticTacToe: combinedTicTacToeReducers,
+});
+
+const persistConfig = {
+    key: 'root',
+    storage,
+    whitelist: ['userAuth']
+};
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
 const store = configureStore({
-    reducer: {
-        userAuth: userAuthSlice,
-        ticTacToe: combinedTicTacToeReducers,
-    },
+    reducer: persistedReducer,
     middleware(getDefaultMiddleware) {
-        return getDefaultMiddleware().concat(thunk);
+        return getDefaultMiddleware({
+            serializableCheck: {
+                ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+            }
+        }).concat(thunk);
     },
     preloadedState: initialState
 });
 
+export const persistor = persistStore(store);
+
 export default store;
+
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>;

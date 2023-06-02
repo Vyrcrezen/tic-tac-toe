@@ -6,7 +6,7 @@ const userAuthSlice = createSlice({
     name: 'userAuth',
     initialState: initialUserAuthState,
     reducers: {
-        setLoggedUser: (state, action: PayloadAction<string>) => {
+        setLoggedUser: (state, action: PayloadAction<string | undefined>) => {
             state.loggedUserName = action.payload;
         }
     }

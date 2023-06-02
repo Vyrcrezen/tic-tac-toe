@@ -11,7 +11,7 @@ const RuntimeUpdater: React.FC = () => {
 
     useEffect(() => {
         if(!state.gameState.isInitialized && !state.gameState.isBeingInitialized) {
-            dispatch(initializeGameStateThunk({ gameState: state.gameState, gameResources: state.gameResources }));
+            dispatch(initializeGameStateThunk({ gameState: state.gameState, gameResources: state.gameResources, gameInput: state.gameInput }));
         }
         else if(state.gameState.isInitialized && !state.gameState.isRunning && !state.gameState.isGameOver) {
             dispatch(runGameplayLoopThunk({ gameState: state.gameState, gameResources: state.gameResources, gameInput: state.gameInput }));
@@ -19,7 +19,7 @@ const RuntimeUpdater: React.FC = () => {
         else if (state.gameState.isGameOver && !state.gameState.isPostGameStateFinished && !state.gameState.isAdvancingPostGameState) {
             dispatch(setupNextGameThunk({ gameState: state.gameState, gameResources: state.gameResources }))
         }
-    }, [state.gameState]);
+    }, [state.gameState.initializationTasks.isConfigFinished, state.gameState.needsToRunAgain, state.gameState.inGameTasks.didCurrentPlayerMove, state.gameState.isGameOver, state.gameState.postGameTasks.isNextStateSelected]);
 
     return null;
 }
