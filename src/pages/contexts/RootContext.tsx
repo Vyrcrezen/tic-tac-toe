@@ -6,6 +6,10 @@ import { ThemeProvider } from "@mui/material";
 import defaultMuiTheme from "../../global/mui/defaultMuiTheme";
 import { PersistGate } from "redux-persist/integration/react" ;
 
+/**
+ * This React Component encapsulates all context used by the application
+ * @returns a React element, which includes all necessary global context with an Outlet inside
+ */
 export default function RootContext() {
     return (
         <Provider store={store} >

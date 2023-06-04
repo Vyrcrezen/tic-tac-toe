@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
-import GameCanvas from "./GameCanvas";
+import GameCanvas from "../container/GameCanvas";
 import importMapAssets from "../../imports/importMapAssets";
-import { useAppDispatch } from "../../../../global/redux/hooks";
-import TopBar from "../hoc/TopBar";
+import TopBar from "./TopBar";
 
-
+/**
+ * 
+ * @returns a React component, which includes the `TopBar` responsible for displaying player turns and winner,
+ * as well as the `GameCanvas`, where the game's settings or the game canvas is located
+ */
 export default function GameCanvasArea() {
     const [mapAssets, setMapAssets] = useState<Awaited<ReturnType<typeof importMapAssets>>>();
-
-    const dispatch = useAppDispatch();
 
     // Import the assets
     useEffect(() => {

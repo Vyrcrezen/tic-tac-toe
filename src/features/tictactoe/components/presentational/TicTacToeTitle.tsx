@@ -1,6 +1,10 @@
 import React from "react";
 import { useAppSelector } from "../../../../global/redux/hooks";
 
+/**
+ * 
+ * @returns a simple React component which displays the text "Tic-Tac-Toe" in the selected language
+ */
 export default function TicTacToeTitle() {
 
     const localization = useAppSelector(state => state.localization.data.ticTacToe);

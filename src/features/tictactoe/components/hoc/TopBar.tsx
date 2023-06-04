@@ -5,6 +5,11 @@ import { useAppSelector } from "../../../../global/redux/hooks";
 import RoundWonBar from "../presentational/RoundWonBar";
 import TicTacToeTitle from "../presentational/TicTacToeTitle";
 
+/**
+ * 
+ * @param param0 the dynamically imported map assets, as returned by `importMapAssets`
+ * @returns a React component which displays one of three components based on internal states: `TicTacToeTitle`, `PlayerTurns` or `RoundWonBar`
+ */
 export default function TopBar({mapAssets}: {mapAssets?: Awaited<ReturnType<typeof importMapAssets>>}) {
 
     const state = useAppSelector(state => state.ticTacToe);

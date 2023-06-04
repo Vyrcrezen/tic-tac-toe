@@ -4,6 +4,11 @@ import importMapAssets from "../../imports/importMapAssets";
 import Button from "@mui/material/Button";
 import { setIsNextStateSelected, setNextState } from "../../redux/reducers/slices/gameStateSlice";
 
+/**
+ * 
+ * @param param0 the dynamically imported map assets, as returned by `importMapAssets`
+ * @returns a React component, which includes the winning player's card and two buttons for either continuing or ending the game
+ */
 export default function RoundWonBar({ mapAssets }: { mapAssets?: Awaited<ReturnType<typeof importMapAssets>> }) {
 
     const roundWinner = useAppSelector(state => state.ticTacToe.gameState.roundWinner);
@@ -30,7 +35,9 @@ export default function RoundWonBar({ mapAssets }: { mapAssets?: Awaited<ReturnT
                     color='primary'
                     type='button'
                     onClick={() => {
+                        // The `setupNextGameThunk` will read this value to determine how to change the internal states
                         dispatch(setNextState('CONTINUE'));
+                        // This value triggers the gameplay updater
                         dispatch(setIsNextStateSelected(true));
                     }}
                 >
@@ -42,7 +49,9 @@ export default function RoundWonBar({ mapAssets }: { mapAssets?: Awaited<ReturnT
                     color='primary'
                     type='button'
                     onClick={() => {
+                        // The `setupNextGameThunk` will read this value to determine how to change the internal states
                         dispatch(setNextState('END'));
+                        // This value triggers the gameplay updater
                         dispatch(setIsNextStateSelected(true));
                     }}
                 >

@@ -9,6 +9,10 @@ function loadImage(src: string): Promise<{ src: string, img: HTMLImageElement}> 
     });
 }
 
+/**
+ * This function asynchronously loads all image assets used by the tic-tac-toe game board
+ * @returns an array of objects, where each object holds the name of the asset, a `src` which holds the asset, as well as a HTML image element configured with the asset for being rendered onto a canvas
+ */
 export default async function importMapAssets() {
 
     const imageImports: Record<TokenType | 'fullCellFrame', { name: string, src: string, image: HTMLImageElement}> = {} as Record<TokenType | 'fullCellFrame', { name: string, src: string, image: HTMLImageElement}>;

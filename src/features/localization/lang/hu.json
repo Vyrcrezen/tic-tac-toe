@@ -10,7 +10,7 @@
         "toPlay": "hogy a játék elkezdődhessen."
       },
       "gameSetup": {
-          "welcome": "Üdvözlet, ",
+          "welcome": "Üdvözöljük, ",
           "readyToPlay": "Kezdődhet a játék?",
           "boardCol": "Tábla oszlopok",
           "boardRow": "Tábla sorok",

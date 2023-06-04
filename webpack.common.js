@@ -34,6 +34,11 @@ module.exports = {
   plugins: [
     new CopyWebpackPlugin({
       patterns: [
+          { from: './src/features/server/server.js', to: './' }
+      ]
+  }),
+    new CopyWebpackPlugin({
+      patterns: [
           { from: './src/features/localization/lang', to: 'lang/' }
       ]
   }),
@@ -43,7 +48,7 @@ module.exports = {
       minify: true,
       filename: "Router.html",
       chunks: ["router"],
-      publicPath: "/"
+      publicPath: "./"
     }),
   ],
   resolve: {

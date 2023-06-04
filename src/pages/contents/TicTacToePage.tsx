@@ -1,5 +1,5 @@
 import React from 'react';
-import GameCanvasArea from '../../features/tictactoe/components/container/GameCanvasArea';
+import GameCanvasArea from '../../features/tictactoe/components/hoc/GameCanvasArea';
 import RuntimeUpdater from '../../features/tictactoe/logic/RuntimeUpdater';
 
 export default function TicTacToePage() {
@@ -10,6 +10,3 @@ export default function TicTacToePage() {
         </div>
     );
 }
-
-
-// <Link to={'/tic-tac-toe/scores'}>Scores</Link>

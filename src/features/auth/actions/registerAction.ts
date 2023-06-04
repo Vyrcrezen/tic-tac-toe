@@ -1,15 +1,11 @@
 import { ActionFunction, redirect } from "react-router";
 
+/**
+ * Normally, this where API calls to the server would take place to handle the registration of the user
+ * However, this is a serverless application, so without API calls, we just redirect the user
+ * @returns 
+ */
 const registerAction: ActionFunction = async ({ request, params }: { request: Request, params: {} }) => {
-
-    // const formData = await request.formData();
-
-    // const fromEntries = {
-    //     username: formData.get("username")?.toString(),
-    //     password: formData.get("password")?.toString(),
-    //     email: formData.get("email")?.toString(),
-    // };
-
     return redirect('/login');
 }
 
