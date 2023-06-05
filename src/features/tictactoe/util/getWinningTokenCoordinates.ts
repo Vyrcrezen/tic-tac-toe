@@ -43,7 +43,7 @@ export default function getWinningTokenCoordinates(gameTokens: PlacedToken[], to
                 }
             }
 
-            // North-East Diagonal
+            // Up-Right Diagonal
             upRightWinningTokenCoordinates.push(baseToken.position);
             endOfSimilarTokensReached = false;
             counter = 1;
@@ -57,7 +57,7 @@ export default function getWinningTokenCoordinates(gameTokens: PlacedToken[], to
                 }
             }
 
-            // South-East Diagonal
+            // Down-Right Diagonal
             downRightWinningTokenCoordinates.push(baseToken.position);
             endOfSimilarTokensReached = false;
             counter = 1;

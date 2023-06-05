@@ -27,8 +27,8 @@ export default function RegisterForm() {
                         rePassword: ''
                     }}
                     validationSchema={Yup.object({
-                        username: Yup.string().required(error.required),
-                        email: Yup.string().email(error.invalidEmail).required(error.required),
+                        username: Yup.string().required(error.required).min(3, error.usernameLength).max(16, error.usernameLength),
+                        email: Yup.string().email(error.invalidEmail).required(error.required).min(3, error.passwordLength).max(16, error.passwordLength),
                         password: Yup.string().required(error.required),
                         rePassword: Yup.string().oneOf([Yup.ref('password'), undefined], error.passwordsMustMatch).required(error.required)
                     })}

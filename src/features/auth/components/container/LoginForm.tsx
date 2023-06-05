@@ -31,8 +31,8 @@ export default function LoginForm() {
                         password: '',
                     }}
                     validationSchema={Yup.object({
-                        username: Yup.string().required(error.required),
-                        password: Yup.string().required(error.required),
+                        username: Yup.string().required(error.required).min(3, error.usernameLength).max(16, error.usernameLength),
+                        password: Yup.string().required(error.required).min(8, error.passwordLength).max(32, error.passwordLength),
                     })}
                     onSubmit={(values, action) => {  
                         // Once the user submits the form, validate the values with this function

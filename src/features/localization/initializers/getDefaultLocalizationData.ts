@@ -63,6 +63,8 @@ const defaultLocalizationData: LocalizationData = {
                 unkownError: "Something went wrong",
                 passwordsMustMatch: "Passwords must match",
                 invalidEmail: "Invalid email address",
+                usernameLength: "Username must be between 3 and 16 characters long.",
+                passwordLength: "Password must be between 8 and 32 characters long.",
             }
         }
     }

@@ -51,14 +51,16 @@
           "register": "Regisztrálás",
           "username": "Felhasználónév",
           "email": "Email",
-          "password": "Jelsző",
-          "rePassword": "Jelsző megint"
+          "password": "Jelszó",
+          "rePassword": "Jelszó megint"
       },
       "error": {
           "required": "Szükséges",
           "unkownError": "Hiba történt",
           "passwordsMustMatch": "A jelszavaknak egyezniük kell",
-          "invalidEmail": "Rossz e-mail cím"
+          "invalidEmail": "Rossz e-mail cím",
+          "usernameLength": "A felhasználónév hossza 3 és 16 karakter között kell legyen.",
+          "passwordLength": "A jelszó hossza 3 és 16 karakter között kell legyen."
       }
   }
   }

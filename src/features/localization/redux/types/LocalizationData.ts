@@ -62,6 +62,8 @@ export default interface LocalizationData {
                 unkownError: string,
                 passwordsMustMatch: string,
                 invalidEmail: string,
+                usernameLength: string,
+                passwordLength: string,
             }
         }
     }
