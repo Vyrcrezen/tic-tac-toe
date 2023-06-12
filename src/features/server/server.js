@@ -7,7 +7,7 @@ console.log(path.join(__dirname));
 
 app.use("/", express.static(path.join(__dirname), { extensions: ["html"] }));
 
-app.get("*", (_req, res) => res.sendFile(path.join(__dirname, 'Router.html')));
+app.get("*", (_req, res) => res.sendFile(path.join(__dirname, 'router.html')));
 
 const port = 8082;
 

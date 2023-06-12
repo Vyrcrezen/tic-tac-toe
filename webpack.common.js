@@ -1,6 +1,8 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const WorkboxPlugin = require('workbox-webpack-plugin');
 const path = require("path");
+const { template } = require("lodash");
 
 module.exports = {
   entry: {
@@ -28,7 +30,7 @@ module.exports = {
             mimetype: 'image/jpg',
             limit: 1 * 1024,
         },
-    },
+      },
     ],
   },
   plugins: [
@@ -36,19 +38,38 @@ module.exports = {
       patterns: [
           { from: './src/features/server/server.js', to: './' }
       ]
-  }),
+    }),
     new CopyWebpackPlugin({
       patterns: [
           { from: './src/features/localization/lang', to: 'lang/' }
       ]
+    }),
+    new CopyWebpackPlugin({
+      patterns: [
+          { from: './tictactoe.webmanifest', to: './' }
+      ]
+    }),
+    new CopyWebpackPlugin({
+      patterns: [
+          { from: './src/global/media/images/icon.png', to: './' }
+      ]
+    }),
+  new WorkboxPlugin.GenerateSW({
+    swDest: 'service-worker.js',
+    navigateFallback: 'router.html',
+    clientsClaim: true,
+    skipWaiting: true,
   }),
     new HtmlWebpackPlugin({
-      title: "Melody Bits",
-      injext: true,
+      title: "Tic-Tac-Toe",
+      inject: true,
       minify: true,
-      filename: "Router.html",
+      favicon: './src/global/media/images/favicon.ico',
+      filename: "router.html",
       chunks: ["router"],
-      publicPath: "./"
+      publicPath: "./",
+      template: './src/global/templates/rootTemplate.html',
+      manifest: './tictactoe.webmanifest'
     }),
   ],
   resolve: {

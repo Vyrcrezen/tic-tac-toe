@@ -14,39 +14,48 @@ import RootContext from "./contexts/RootContext";
 import registerAction from "../features/auth/actions/registerAction";
 import loginAction from "../features/auth/actions/loginAction";
 import ErrorPage from "./contents/ErrorPage";
+import ServiceWorker from "./contexts/ServiceWorker";
+
+// import '../global/media/images/favicon.ico';
 
 // This Browser Router from 'react-router-dom' is the central location of the web application
 // All other pages and functionalities can be accessed here
 // Currently, the application supports a local registration and login, and a Tic-Tac-Toe game
 const router = createBrowserRouter([
     {
-        path: '/',
-        element: <RootContext />,
+        element: <ServiceWorker />,
         errorElement: <ErrorPage />,
         children: [
             {
-                element: <DefaultLayout />,
-                children: [{
-                    errorElement: <ErrorPage />,
-                    children: [
-                        {
-                            index: true,
-                            element: <TicTacToePage />
-                        },
-                        {
-                            path: '/login',
-                            element: <LoginPage />,
-                            action: loginAction
-                        },
-                        {
-                            path: '/register',
-                            element: <RegisterPage />,
-                            action: registerAction
-                        }
-                    ]
-                }]
+                element: <RootContext />,
+                children: [
+                    {
+                        path: '/',
+                        element: <DefaultLayout />,
+                        children: [{
+                            errorElement: <ErrorPage />,
+                            children: [
+                                {
+                                    index: true,
+                                    element: <TicTacToePage />,
+                                },
+                                {
+                                    path: '/login',
+                                    element: <LoginPage />,
+                                    action: loginAction,
+                                },
+                                {
+                                    path: '/register',
+                                    element: <RegisterPage />,
+                                    action: registerAction
+                                }
+                            ]
+                        }]
+                    }
+                ]
             }
         ]
+        
     },
 ]);
 
