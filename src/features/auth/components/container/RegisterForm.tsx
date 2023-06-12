@@ -44,6 +44,8 @@ export default function RegisterForm() {
                             if (err instanceof UsernameAlreadyRegisteredError) action.setFieldError('username', err.message);
                             else if (err instanceof EmailAlreadyInUse) action.setFieldError('email', err.message);
                             else action.setFieldError('username', error.unkownError);
+
+                            action.setSubmitting(false);
                         });                        
                     }}
                 >

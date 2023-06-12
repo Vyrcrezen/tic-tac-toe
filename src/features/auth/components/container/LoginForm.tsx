@@ -48,6 +48,8 @@ export default function LoginForm() {
                             if (err instanceof UsernameNotFoundError) action.setFieldError('username', err.message);
                             else if (err instanceof IncorrectPasswordError) action.setFieldError('password', err.message);
                             else action.setFieldError('username', error.unkownError);
+                            
+                            action.setSubmitting(false);
                         });
                     }}
                 >
